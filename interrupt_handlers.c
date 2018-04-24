@@ -59,10 +59,11 @@ void keypress(void* frame)
   
   // Deal with a key release scancode
   if (index & 0x80) {
-    if (caps_count >= 2 && caps && index == 186) { // The stopcode for caps has been seen, so disable it
+    if ((caps_count >= 2 && caps && index == 186) || index == 170 || index == 182) { // The stopcode for caps has been seen, so disable it
       caps = FALSE;
       caps_count = 0;
     }
+
   }
   else {
     // Determine if CAPSLOCK or shift is pressed
@@ -70,6 +71,10 @@ void keypress(void* frame)
       caps = TRUE;
       caps_count += 1;
     } 
+
+    if (index == 42 || index == 54) { // shift
+      caps = TRUE;
+    }
 
     // Load the key value into a char array for writing to the screen
     char key_val[2] = {get_char(index, caps)};
