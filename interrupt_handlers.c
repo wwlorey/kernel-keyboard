@@ -4,6 +4,7 @@
 #define TRUE	0x01
 #define FALSE	0x00
 
+// Scancode lookup table credit: www.osdever.net/bkerndev/Docs/keyboard.htm
 char kbdus[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
@@ -63,7 +64,6 @@ void keypress(void* frame)
       caps = FALSE;
       caps_count = 0;
     }
-
   }
   else {
     // Determine if CAPSLOCK or shift is pressed
@@ -98,6 +98,7 @@ int hex_to_int(const char* hex) {
   unsigned int digit = 0;
   int result = 0;
 
+  // Convert the 2-digit hex number, digit by digit, to int
   for (k = 0; k < 2; k++) {
     if (hex[k] == '0')
 	digit = 0;
@@ -132,6 +133,8 @@ int hex_to_int(const char* hex) {
     else if (hex[k] == 'F') 
 	digit = 15;
 
+    // Shift the current contents of result left 4 bit-positions
+    // to make room for incoming nibbles
     result = result << 4;
     result += digit;
   }
@@ -142,6 +145,7 @@ int hex_to_int(const char* hex) {
 char get_char(const int index, const unsigned char caps) {
   char ret = kbdus[index];
   
+  // If CAPSLOCK or shift is engaged, capitalize letters/symbols
   if (caps) {
     if (ret == 'a')
       return 'A';
@@ -239,5 +243,6 @@ char get_char(const int index, const unsigned char caps) {
       return '?';
   }
   
+  // Otherwise, return the original character
   return ret;
 }
