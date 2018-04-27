@@ -66,9 +66,22 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 }
  
 void terminal_putchar(char c) {
+  // Enter character (newline)
   if(c == '\n') {
     terminal_row = (terminal_row + 1)%VGA_HEIGHT;
     terminal_column = 0;
+    return;
+  }
+  // Tab character (insert four spaces)
+  else if (c == '\t') {
+    terminal_column = terminal_column + 4;
+    return;
+  }
+  // Backspace character
+  else if (c == '\b') {
+    terminal_column--;
+    // Insert a space to cover whatever was in the terminal at prev. position
+    terminal_putentryat(' ', terminal_color, terminal_column, terminal_row);
     return;
   }
 

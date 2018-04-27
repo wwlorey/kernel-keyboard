@@ -46,12 +46,6 @@ void kernel_main(void) {
 	/* Initialize terminal interface */
 	terminal_initialize();
 
-	/* Newline support is left as an exercise. */
-	terminal_writestring("Hello, kernel World!\nThis is a second line\n");
-
-  /* Send interrupt 0x42 */
-  asm("int $0x42");
-
   /* Hang forever */
   for(;;) {
     asm("hlt");
