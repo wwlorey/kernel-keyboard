@@ -1,3 +1,7 @@
+#### CS 3500 Operating Systems | Final Project
+
+#### Provided README:
+
 # Getting started:
 
 This directory contains a VERY basic kernel.
